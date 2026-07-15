@@ -1,108 +1,148 @@
 # Calendário de Marketing 2027
 
-Aplicação web gratuita para planejamento anual de conteúdo e campanhas, criada com Next.js, TypeScript e uma organização inspirada em MVC.
+Aplicação web para planejamento anual de campanhas, conteúdos e ações de marketing ao longo de 2027.
+
+O sistema reúne datas comerciais, sazonais, institucionais, sociais, profissionais, digitais e de saúde em uma interface responsiva, permitindo localizar oportunidades e organizar ideias de campanha com mais facilidade.
+
+## Objetivo do sistema
+
+O Calendário de Marketing 2027 foi desenvolvido para ajudar empresas, agências, profissionais de comunicação, social media, criadores de conteúdo e instituições públicas a planejarem suas ações com antecedência.
+
+Cada data cadastrada apresenta informações como categoria, prioridade, descrição e sugestão de campanha.
 
 ## Funcionalidades
 
-- 94 datas estratégicas de 2027 com descrição e ideia de campanha.
-- Busca por palavras-chave.
-- Filtros por mês, categoria e prioridade.
-- Categorias comerciais, digitais, institucionais, sociais, de saúde, sazonais e feriados.
-- Cadastro e exclusão de datas personalizadas no navegador.
-- Persistência gratuita por `localStorage`.
-- Exportação dos resultados filtrados em CSV.
-- Exportação em `.ics` para Google Calendar, Outlook e Apple Calendar.
+- Calendário com 94 datas estratégicas de 2027.
+- Busca por título, descrição e ideia de campanha.
+- Filtro por mês.
+- Filtro por categoria.
+- Filtro por nível de prioridade.
+- Agrupamento dos eventos por mês.
+- Indicadores com quantidade de datas e oportunidades.
+- Descrição detalhada de cada evento.
+- Sugestões de conteúdo e campanha.
+- Cadastro de datas personalizadas.
+- Exclusão de datas personalizadas.
+- Armazenamento das datas personalizadas no navegador.
+- Exportação dos resultados em CSV.
+- Exportação em formato `.ics`.
+- Compatibilidade do arquivo `.ics` com Google Calendar, Outlook e Apple Calendar.
 - Modo claro e escuro.
-- API JSON em `/api/events`.
-- Interface responsiva para computador, tablet e celular.
+- Interface adaptada para computador, tablet e celular.
+- API interna para consulta dos eventos.
+
+## Categorias disponíveis
+
+O sistema organiza as datas nas seguintes categorias:
+
+- Comercial
+- Digital
+- Institucional
+- Social
+- Saúde
+- Sazonal
+- Profissional
+- Feriado
+
+## Níveis de prioridade
+
+Cada evento pode ser classificado conforme sua relevância para o planejamento:
+
+- Alta
+- Média
+- Baixa
+
+A prioridade ajuda a identificar rapidamente as datas que podem gerar campanhas mais importantes ou que exigem maior antecedência.
 
 ## Arquitetura MVC
 
+O projeto utiliza uma organização inspirada no padrão MVC:
+
+- **Model:** define os tipos, categorias, prioridades e regras dos eventos.
+- **Controller:** processa filtros, agrupamentos, estatísticas e exportações.
+- **View:** apresenta os dados e controla a interação com o usuário.
+
+### Estrutura principal
+
 ```text
 src/
-├── app/                         # Rotas e pontos de entrada do Next.js
-│   ├── api/events/route.ts      # Controller HTTP / API
+├── app/
+│   ├── api/
+│   │   └── events/
+│   │       └── route.ts
+│   ├── globals.css
+│   ├── icon.svg
 │   ├── layout.tsx
 │   └── page.tsx
 ├── controllers/
-│   └── calendar-controller.ts   # Filtros, agrupamento, estatísticas e exportações
+│   └── calendar-controller.ts
 ├── data/
-│   └── marketing-events-2027.ts # Base de dados estática
+│   └── marketing-events-2027.ts
 ├── models/
-│   └── marketing-event.ts       # Tipos e regras do domínio
+│   └── marketing-event.ts
 └── views/
-    ├── calendar-dashboard.tsx    # View principal
+    ├── calendar-dashboard.tsx
     └── components/
-        └── event-card.tsx        # Componente visual de evento
+        └── event-card.tsx
 ```
 
-Neste projeto:
+## Componentes do sistema
 
-- **Model:** tipos, categorias, prioridades e base de eventos.
-- **Controller:** tratamento dos filtros, agrupamento, estatísticas e exportações.
-- **View:** componentes React responsáveis pela interface.
+### Model
 
-## Requisitos
+O arquivo abaixo contém as definições do domínio da aplicação:
 
-- Node.js 20 ou superior.
-- npm 10 ou superior.
-
-## Rodar localmente
-
-```bash
-npm install
-npm run dev
+```text
+src/models/marketing-event.ts
 ```
 
-Abra `http://localhost:3000`.
+Nele estão definidos:
 
-## Validar e gerar versão de produção
+- Estrutura dos eventos.
+- Categorias disponíveis.
+- Níveis de prioridade.
+- Tipos utilizados nos filtros.
 
-```bash
-npm run check
-npm run build
-npm start
+### Controller
+
+O processamento dos dados está concentrado em:
+
+```text
+src/controllers/calendar-controller.ts
 ```
 
-## Publicar no GitHub
+Esse controller é responsável por:
 
-Crie um repositório vazio chamado `calendario-marketing-2027` na sua conta. Depois, dentro da pasta do projeto, execute:
+- Aplicar os filtros selecionados.
+- Ordenar os eventos por data.
+- Agrupar os resultados por mês.
+- Gerar estatísticas.
+- Gerar arquivos CSV.
+- Gerar arquivos de calendário no formato `.ics`.
 
-```bash
-git init
-git add .
-git commit -m "feat: calendário de marketing 2027"
-git branch -M main
-git remote add origin https://github.com/dinicleyaguiar/calendario-marketing-2027.git
-git push -u origin main
+### View
+
+A interface principal está localizada em:
+
+```text
+src/views/calendar-dashboard.tsx
 ```
 
-Para usar SSH, substitua a URL do `origin` por:
+Os cards individuais dos eventos são renderizados pelo componente:
 
-```bash
-git@github.com:dinicleyaguiar/calendario-marketing-2027.git
+```text
+src/views/components/event-card.tsx
 ```
 
-## Publicar gratuitamente na Vercel
+## Base de dados das datas
 
-1. Acesse o painel da Vercel e escolha **Add New > Project**.
-2. Conecte sua conta do GitHub.
-3. Importe o repositório `calendario-marketing-2027`.
-4. Mantenha o preset **Next.js**.
-5. Não é necessário configurar variáveis de ambiente.
-6. Clique em **Deploy**.
-
-A Vercel fará novos deploys automaticamente sempre que houver um `push` na branch `main`.
-
-## Atualizar as datas
-
-Edite o arquivo:
+Os eventos oficiais do calendário estão armazenados no arquivo:
 
 ```text
 src/data/marketing-events-2027.ts
 ```
 
-Cada evento segue o formato:
+Cada evento segue esta estrutura:
 
 ```ts
 {
@@ -111,25 +151,141 @@ Cada evento segue o formato:
   title: "Dia do Consumidor",
   category: "comercial",
   priority: "alta",
-  description: "Descrição da oportunidade.",
+  description: "Descrição da oportunidade de marketing.",
   campaignIdea: "Sugestão de conteúdo ou campanha."
 }
 ```
 
-## Observações sobre as datas
+## Datas personalizadas
 
-Este é um calendário editorial e de marketing, não um calendário jurídico. Datas religiosas, pontos facultativos, feriados estaduais e eventos regionais podem variar. Confirme a aplicação na sua cidade e no seu estado antes de comunicar horários de funcionamento.
+As datas adicionadas pelo usuário são armazenadas no `localStorage` do navegador.
 
-As datas móveis de 2027 foram organizadas a partir da Páscoa em 28 de março de 2027. Black Friday foi posicionada em 26 de novembro de 2027, seguida da Cyber Monday em 29 de novembro.
+Isso significa que:
 
-## Tecnologias
+- Não é necessário banco de dados externo.
+- As informações ficam salvas no próprio navegador.
+- Os dados não são compartilhados entre dispositivos.
+- A limpeza dos dados do navegador pode remover as datas personalizadas.
+
+## API de eventos
+
+O sistema disponibiliza uma rota interna para consulta dos eventos:
+
+```text
+GET /api/events
+```
+
+A resposta é fornecida em formato JSON e contém a lista de datas cadastradas no calendário oficial.
+
+## Exportação CSV
+
+A exportação CSV gera uma planilha com os eventos que estiverem visíveis após a aplicação dos filtros.
+
+O arquivo inclui informações como:
+
+- Data
+- Título
+- Categoria
+- Prioridade
+- Descrição
+- Ideia de campanha
+
+## Exportação de calendário
+
+A exportação `.ics` permite importar as datas para aplicativos de calendário compatíveis, como:
+
+- Google Calendar
+- Microsoft Outlook
+- Apple Calendar
+
+Os eventos exportados respeitam os filtros ativos no momento da geração do arquivo.
+
+## Tecnologias utilizadas
 
 - Next.js 16
 - React 19
 - TypeScript
-- CSS puro
+- CSS
 - LocalStorage
+- API Routes do Next.js
+
+## Requisitos
+
+- Node.js 20 ou superior.
+- npm 10 ou superior.
+
+## Executar o sistema localmente
+
+Instale as dependências:
+
+```bash
+npm install
+```
+
+Inicie o ambiente de desenvolvimento:
+
+```bash
+npm run dev
+```
+
+Acesse no navegador:
+
+```text
+http://localhost:3000
+```
+
+## Scripts disponíveis
+
+### Ambiente de desenvolvimento
+
+```bash
+npm run dev
+```
+
+### Verificação do TypeScript
+
+```bash
+npm run check
+```
+
+### Gerar a versão de produção
+
+```bash
+npm run build
+```
+
+### Executar a versão de produção
+
+```bash
+npm start
+```
+
+## Personalização das datas
+
+Para adicionar, editar ou remover datas oficiais, altere o arquivo:
+
+```text
+src/data/marketing-events-2027.ts
+```
+
+Mantenha os identificadores únicos e utilize datas no formato:
+
+```text
+AAAA-MM-DD
+```
+
+Exemplo:
+
+```text
+2027-11-26
+```
+
+## Observações importantes
+
+O sistema funciona como um calendário editorial e de marketing. Ele não substitui calendários oficiais, jurídicos ou administrativos.
+
+Feriados estaduais, municipais, pontos facultativos, datas religiosas e eventos regionais podem variar conforme a localidade. Antes de divulgar horários de funcionamento ou informações institucionais, confirme os dados nos órgãos oficiais responsáveis.
 
 ## Licença
 
-MIT.
+Este projeto utiliza a licença MIT.
