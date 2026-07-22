@@ -48,3 +48,4 @@ git push
 ```
 
 Cada `push` na branch `main` gera automaticamente uma nova publicação na Vercel.
+
